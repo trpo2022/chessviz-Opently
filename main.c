@@ -21,7 +21,7 @@ int main()
  		    	  j--;
  		      }
  		
-	      	printf("%c ", a[i]);
+	      	printf("%c ", arr[i]);
 	
 	    	  if(i % 8 == 7)
 	    	  {
