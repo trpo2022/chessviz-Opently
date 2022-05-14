@@ -3,7 +3,7 @@
 #define CTEST_MAIN
 #define CTEST_SEGFAULT
 
-#include "ctest.h"
+#include </home/opently/chessviz-Opently/thirdparty/ctest.h>
 
 int main(int argc, const char* argv[])
 {

@@ -1,5 +1,5 @@
-#include "ctest.h"
-#include "check_move.h"
+#include </home/opently/chessviz-Opently/thirdparty/ctest.h>
+#include </home/opently/chessviz-Opently/src/libchessviz/check_move.h>
 
 CTEST(ctest, write1)
 {

@@ -9,6 +9,13 @@ CC = gcc -c
 CFLAGS = -Wall -Werror
 INCLUDEPATH = -I src
 
+test_name = test
+test_path = bin/$(test_name)
+
+test_sources = $(shell find test/ -name '*.c')
+test_objects = $(test_sources:test/%.cpp=obj/test/%.o)
+
+
 all: bin/chessviz
 
 obj/src/libchessviz/Mate.o: $(LIBSOURCE)Mate.c
@@ -36,3 +43,12 @@ run:
 clean:
 	rm -f $(OBJLIB)*.[oa]
 	rm -f $(OBJCHESS)*.o
+						
+.PHONY: test
+test: $(test_path)
+
+$(test_path): $(test_objects) $(LIB_PATH)
+	gcc -Wall -Wextra -Werror -I src -MP -MMD -I thirdparty /home/opently/chessviz-Opently/src/libchessviz/check_move.c /home/opently/chessviz-Opently/test/mytests.c /home/opently/chessviz-Opently/test/main.c -o bin/test
+
+test_run:
+	./bin/test
