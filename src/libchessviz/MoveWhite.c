@@ -2,12 +2,14 @@
 
 #include "PrintCB.h" //PrintChessBoard
 #include "Check.h"
-#include "Mate.h"
+#include "Mate.h" 
+#include "InputVar.h"
 
 void MoveWhite(char a[],int *varExit,int *isMoveWhite,int *isMoveKingWhite,int *isMoveRookWhite, int *globalCheck)
 {
-	char finishLetter; int finishNumber; int finishCell;
-	char startLetter; int startNumber; int startCell;
+	char finishLetter; int finishNumber; char infoMove; char typeMove;
+	char startLetter; int startNumber; char typeFigure;
+	int finishCell;  int startCell;
 	
 	int isCheck = 0; int isMate = 0; 
 	char colorW = 'W'; char colorB = 'B';
@@ -15,10 +17,8 @@ void MoveWhite(char a[],int *varExit,int *isMoveWhite,int *isMoveKingWhite,int *
 	int cellKingB; int cellKingW;
 	char lastFigure; int threatCell = 64; char pawnTransform; 
 
-	printf("(White)Print letter and numbers of cells to move: ");
-	scanf("  %c%d-%c%d",&startLetter,&startNumber,&finishLetter,&finishNumber); 
-	fflush(stdin); 
-	printf("\n");
+	printf("(White)Print letters and numbers of cells to move: ");
+InputVar(&finishLetter,&finishNumber,&infoMove,&typeMove,&startLetter,&startNumber,&typeFigure);
         	 
 	startCell = ((8-startNumber)*8)+(startLetter-'0'-49);
 	finishCell = ((8-finishNumber)*8)+(finishLetter-'0'-49); 
@@ -29,11 +29,11 @@ void MoveWhite(char a[],int *varExit,int *isMoveWhite,int *isMoveKingWhite,int *
 		*isMoveWhite = 0;
 		*varExit = 1;		
 	 }
-	 else if(finishNumber > 8 || finishNumber < 1)
+	 else if(finishNumber > 8 || finishNumber < 1 || !((typeFigure - 'A' + 'a') == a[startCell]) 		|| (typeMove == 'x' && !(infoMove == a[finishCell])) 
+		|| (!(typeMove == 'x') && (infoMove == a[finishCell])))
 	 {
 	 	*isMoveWhite = 0;
 	printf("  Incorrect input %c.%d.%c.%d\n",startLetter,startNumber,finishLetter,finishNumber);
-	 	*varExit = 1;	
 	 }
 	 else
 	 {
@@ -43,7 +43,7 @@ void MoveWhite(char a[],int *varExit,int *isMoveWhite,int *isMoveKingWhite,int *
         		if(a[i] == 'k'){cellKingW = i;}
 		}
 
-         	 if(!((startLetter == 'a') || (startLetter == 'b') || (startLetter == 'c') || 			 (startLetter == 'd') || (startLetter == 'e')
+         	 if(!((startLetter == 'a') || (startLetter == 'b') || (startLetter == 'c') || (startLetter == 'd') || (startLetter == 'e')
            	 || (startLetter == 'f') || (startLetter == 'g') || (startLetter == 'h') ||
            	 (finishLetter == 'a') || (finishLetter == 'b') || (finishLetter == 'c') || 
            	 (finishLetter == 'd') || (finishLetter == 'e') || (finishLetter == 'f') || 
@@ -192,7 +192,7 @@ void MoveWhite(char a[],int *varExit,int *isMoveWhite,int *isMoveKingWhite,int *
 			  !(startCell / 8 ==  finishCell / 8))
 			{
 				a[startCell] = ' ';
-								lastFigure = a[finishCell];
+				lastFigure = a[finishCell];
 				a[finishCell] = 'n';
 
 			Check(a,cellKingW,&isCheck,&threatCell,colorW);

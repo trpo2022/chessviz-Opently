@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "PrintCB.h" //PrintChessBoard
-#include "MoveWhite.h"
-#include "MoveBlack.h"
+#include "libchessviz/PrintCB.h" //PrintChessBoard
+#include "libchessviz/MoveWhite.h"
+#include "libchessviz/MoveBlack.h"
 // to compile: - gcc -Wall -o main PrintCB.c Check.c Mate.c MoveBlack.c MoveWhite.c chess.c
 
 int main()

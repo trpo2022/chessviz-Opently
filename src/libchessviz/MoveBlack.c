@@ -3,11 +3,13 @@
 #include "PrintCB.h" //PrintChessBoard
 #include "Check.h"
 #include "Mate.h"
+#include "InputVar.h"
 
 void MoveBlack(char a[],int *varExit,int *isMoveBlack,int *isMoveKingBlack, int *isMoveRookBlack, int *globalCheck)
 {
-	char finishLetter; int finishNumber; int finishCell;
-	char startLetter; int startNumber; int startCell;
+	char finishLetter; int finishNumber; char infoMove; char typeMove;
+	char startLetter; int startNumber; char typeFigure;
+	int finishCell;  int startCell;
 	
 	int isCheck = 0; int isMate = 0; 
 	char colorW = 'W'; char colorB = 'B';
@@ -15,10 +17,8 @@ void MoveBlack(char a[],int *varExit,int *isMoveBlack,int *isMoveKingBlack, int 
 	int cellKingB; int cellKingW;
 	char lastFigure; int threatCell = 64; char pawnTransform; 
 
-	printf("(Black)Print letter and numbers of cells to move: ");
-	scanf("  %c%d-%c%d",&startLetter,&startNumber,&finishLetter,&finishNumber); 
-	fflush(stdin); 
-	printf("\n");
+	printf("(Black)Print letters and numbers of cells to move: ");
+InputVar(&finishLetter,&finishNumber,&infoMove,&typeMove,&startLetter,&startNumber,&typeFigure);
 	     	  	
 	startCell = ((8-startNumber)*8)+(startLetter-'0'-49);
 	finishCell = ((8-finishNumber)*8)+(finishLetter-'0'-49);
@@ -29,11 +29,11 @@ void MoveBlack(char a[],int *varExit,int *isMoveBlack,int *isMoveKingBlack, int 
 		*isMoveBlack = 0;
 		*varExit = 1;		
 	 }
-	 else if(finishNumber > 8 || finishNumber < 1)
+	 else if(finishNumber > 8 || finishNumber < 1 || !(typeFigure  == a[startCell]) 		|| (typeMove == 'x' && !((infoMove - 'A' + 'a') == a[finishCell])) 
+		|| (!(typeMove == 'x') && ((infoMove - 'A' + 'a') == a[finishCell])))
 	 {
 	 	*isMoveBlack = 0;
 	 	printf("   Incorrect input\n");
-	 	*varExit = 1;	
 	 }
 	 else
 	 {
